@@ -1,1 +1,19 @@
+#全局开启dhcp服务
+dhcp enable 
 
+#配置DHCP地址池
+dhcp server ip-pool vlan130
+ network 192.168.130.0 mask 255.255.255.0
+ gateway-list 192.168.130.254
+ dns-list 114.114.114.114 202.106.0.20
+
+#设置DHCP排出地址
+dhcp server forbidden-ip 192.168.130.1 192.168.130.10
+
+
+
+远程Telnet配置
+
+user-interface vty 0 4
+ user privilege level 3
+ set authentication password cipher $c$3$kP2uEvWxsSNYScX+SMQrCyOAwI2BAXhpslcgLEhJ
