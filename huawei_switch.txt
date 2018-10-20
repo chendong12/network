@@ -1,0 +1,30 @@
+1、VLAN 的DHCP 配置
+
+#全局开启DHCP服务
+dhcp enable
+
+#配置DHCP地址池以及排除地址
+ip pool vlan11
+ gateway-list 10.0.11.1
+ network 10.0.11.0 mask 255.255.255.0
+ excluded-ip-address 10.0.11.220 10.0.11.254
+ dns-list 202.106.46.151 114.114.114.114
+ 
+ #在VLAN11下选择全局的地址池给DHCP客户端使用，否则，接入层交换机下连用户将无法获取IP
+ interface Vlanif11
+  dhcp select global  
+  
+  
+2、telnet 开启
+aaa
+ local-user admin password irreversible-cipher admin_password
+ local-user admin privilege level 15
+ local-user admin service-type telnet terminal ftp http
+user-interface vty 0 4
+ authentication-mode aaa
+ user privilege level 15
+ idle-timeout 3 0
+ protocol inbound all
+user-interface vty 16 20
+
+
